@@ -1,23 +1,48 @@
+import sudoku_generator
+import pygame
+
 class Board:
     def __init__(self, width, height, screen, difficulty):
         self.width = width
         self.height = height
         self.screen = screen
-        self.difficulty = difficulty
+        if difficulty == 'easy':
+            self.difficulty = 30
+        elif difficulty == 'medium':
+            self.difficulty = 40
+        elif difficulty == 'hard':
+            self.difficulty = 50
+
+        self.board = sudoku_generator.generate_sudoku(width, self.difficulty)
         # Constructor for the Board class.
         # screen is a window from PyGame.
         # difficulty is a variable to indicate if the user chose easy medium, or hard.
-        pass
 
     def draw(self):
         # Draws an outline of the Sudoku grid, with bold lines to delineate the 3x3 boxes.
         # Draws every cell on this board.
-        pass
+        size = pygame.display.get_window_size()
+        length = int(size[0]/9)
+        width = int(size[1]/9)
+        for col in range(length, size[0], length):
+            if col%3==0:
+                pygame.draw.line(self.screen, "black", (col,0), (col,size[1]), width=3)
+            else:
+                pygame.draw.line(self.screen, "black", (col,0), (col,size[1]))
+        for row in range(width, size[1], width):
+            if row%3==0:
+                pygame.draw.line(self.screen, "black", (0,row), (size[0],row), width=3)
+            else:
+                pygame.draw.line(self.screen, "black", (0,row), (size[0],row))
 
     def select(self, row, col):
         # Marks the cell at (row, col) in the board as the current selected cell.
         # Once a cell has been selected, the user can edit its value or sketched value.
-        pass
+        size = pygame.display.get_window_size()
+        x = size[0] / 9
+        y = size[1] / 9
+        r = pygame.Rect(x*row, y*col, x, y)
+        pygame.draw.rect(surface = self.screen, rect=r)
 
     def click(self, x, y):
         # If a tuple of (x,y) coordinates is within the displayed board, 
