@@ -14,6 +14,9 @@ class Board:
             self.difficulty = 50
 
         self.board = sudoku_generator.generate_sudoku(width, self.difficulty)
+        for cell_obj in self.board:
+            pass
+        # WE NEED TO WRITE IN CELLS HERE
         # Constructor for the Board class.
         # screen is a window from PyGame.
         # difficulty is a variable to indicate if the user chose easy medium, or hard.
