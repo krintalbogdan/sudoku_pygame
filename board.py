@@ -45,13 +45,18 @@ class Board:
         x = size[0] / 9
         y = size[1] / 9
         r = pygame.Rect(x*row, y*col, x, y)
-        pygame.draw.rect(surface = self.screen, rect=r)
+        pygame.draw.rect(surface = self.screen, rect=r, color = (255, 255, 255, 128))
 
     def click(self, x, y):
         # If a tuple of (x,y) coordinates is within the displayed board, 
         # this function returns a tuple of the (row, col) of the cell which was clicked. 
         # Otherwise, this function returns None.
-        pass
+        size = pygame.display.get_window_size()
+        cell_size = size[0] / 9
+        col = x//cell_size
+        row = y//cell_size
+
+        return (col, row)
 
     def clear(self):
         # Clears the value cell. 
